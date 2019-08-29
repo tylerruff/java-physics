@@ -69,4 +69,17 @@ public class Electricity {
 		}
 	}
 	
+	/*
+		Fields
+	*/
+	static double calculateField(double force, double quantity){
+		if(quantity != 0){
+			return force / quantity;
+		} else {
+			return 0;
+		}
+	}
+	static double calculatePointCharge(double charge, double radius, double rHat){
+		return ((1 / (4.0 * Math.PI * Electricity.permittivityConstant)) * (charge / Math.pow(radius, 2)) * rHat);
+	}
 }

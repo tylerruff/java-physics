@@ -3,13 +3,25 @@ public class ClassicalMechanics {
         Newton's Laws of Motion
         1. An object will continue in it's state of rest,
         or uniform motion, unless acted on by an external force.
-
         2. F = m * a
      */
     static double getForce(double mass, double acceleration){
         //1 kg m/sec^2 = 1 Newton
         return (mass * acceleration);
     }
+	static double getCombinedForces(double[] masses, double[] accelerations){
+		if(masses.length == accelerations.length){
+			double[] forces = new double[masses.length];
+			double totalForce = 0;
+			for(int i = 0; i < masses.length; i++){
+				forces[i] = ClassicalMechanics.getForce(masses[i], accelerations[i]);
+				totalForce += forces[i]; //add to total list
+			}
+			return totalForce;
+		} else {
+			return 0;
+		}
+	}
     /*
         3. To every action, there is an equal and opposite reaction.
      */
@@ -50,7 +62,8 @@ public class ClassicalMechanics {
     /*
         Total Distance traveled
         s = ut + 1/2 (v - u) * t
-
+		at = (v - u)
+		(acceleration multiplyied by time equals the total change in velocity)
      */
     static double calculateDistance(double startVelocity, double endVelocity, double time){
         return (startVelocity * time) + ((0.5) * (endVelocity - startVelocity) * time);
@@ -101,7 +114,6 @@ public class ClassicalMechanics {
 
     /*
         Elastic and Inelastic Collisions
-
         Elastic = energy is conserved in the form of Kinetic Energy
         -------------------------------------------------------------
         Inelastic = energy is conserved, but not necessarily as kinetic energy,
@@ -112,7 +124,6 @@ public class ClassicalMechanics {
     /*
      When an object has potential to fall (or be thrown/or otherwise accelerated),
      it has potential energy.
-
      Potential Energy = m * g * h
      m = mass
      g = gravitational constant
@@ -127,7 +138,6 @@ public class ClassicalMechanics {
         into kintetic energy,
         k = (1 / 2) m * (v ^ 2)
         until that body once again reaches a rest state.
-
         --------------------------------------------------
      */
     /*
@@ -185,7 +195,6 @@ public class ClassicalMechanics {
                    /\
             V                V
             F1               F2
-
         F1 = m1 * g
         F2 = m2 * g
             where,
@@ -194,7 +203,6 @@ public class ClassicalMechanics {
             g = gravitational constant
             b = person 1 distance from pivot point
             a = person 2 distance from pivot point
-
        If, m1 * g * b = m2 * g * a
        Then, the seesaw will NOT move.
      */
@@ -205,9 +213,7 @@ public class ClassicalMechanics {
        If a force is applied to either extant side to a pivot point,
        the torque can be found by multiplying the force by the distance
        of a single side from the pivot point.
-
        Pinwheel example
-
        A force is applied to either side of this pinwheel
               ************
             ****************
@@ -217,7 +223,6 @@ public class ClassicalMechanics {
             ****************
              *************
                t = F * d
-
      */
     /*
         Projectile Motion
@@ -268,6 +273,25 @@ public class ClassicalMechanics {
     public static double degreeToRad(double deg){
         return deg * (Math.PI / 180.0);
     }
+	
+	/*
+		Hooke's Law
+			Getting the responsive force of a spring, given a specific spring constant.
+	*/
+	//k = F
+	//    _
+	//	  x
+	public static double getSpringConstant(double forceReturned, double displacement){
+		if(displacement != 0){
+			return (-1) * (forceReturned / displacement);
+		} else {
+			return 0;
+		}
+	}
+	public static double calculateElasticForce(double springConstant, double changeInX){
+		//F = − kΔx
+		return ((-1) * springConstant * changeInX);
+	}
     public static void main(String[] args){
         //Example 1:
         // Projectile with inital vertical velocity 10 m/s^2
